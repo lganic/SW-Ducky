@@ -1,6 +1,6 @@
 import struct
 
-from utilitity import is_cord_valid, is_poly_valid
+from .utilitity import is_cord_valid, is_poly_valid
 
 def read_single_mesh_chunk(bin, index):
 
@@ -52,13 +52,11 @@ def read_line_quads(bin, index):
     for _ in range(chunk_length // 4):
 
         (
-            x1, _, y1, _alt1, _one_or_zero,
-            x2, _, y2, _alt2, _one_or_zero,
-            x3, _, y3, _alt3, _one_or_zero,
-            x4, _, y4, _alt4, _one_or_zero
+            x1, _, y1, _alt, _one_or_zero,
+            x2, _, y2, _alt, _one_or_zero,
+            x3, _, y3, _alt, _one_or_zero,
+            x4, _, y4, _alt, _one_or_zero
         ) = struct.unpack('<' + 'fffIf' * 4, bin[part_index : part_index + 80])
-
-        print(_alt1, _alt2, _alt3, _alt4)
 
         part_index += 80
 

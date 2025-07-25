@@ -1,2 +1,4 @@
 stormworks_path.py
 __pycache__/*
+*.pyc
+*.egg-info

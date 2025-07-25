@@ -2,12 +2,13 @@
 
 import math
 import os
-from tile_drawing import TileCanvas
+from typing import List, Tuple
 
-from utilitity import line_from_quad
-from parsing import read_n_using_func, read_line_quads, read_single_mesh_chunk, pack_single_mesh, pack_quads
-from path_utils import scale_path, offset_path
-from letter_data import LETTERS
+from .utilitity import line_from_quad
+from .parsing import read_n_using_func, read_line_quads, read_single_mesh_chunk, pack_single_mesh, pack_quads
+from .path_utils import scale_path, offset_path
+from .letter_data import LETTERS
+from .tile_drawing import TileCanvas
 
 EARTH_LAYER_MEM_ORDER = ['Road', 'Grass', 'Sand', 'Pond', 'Snow', 'Rock', 'HardRock', 'Sea-3', 'Sea-2', 'Sea-1','Sea-0']
 EARTH_LAYER_RENDER_ORDER = ['Sea-0', 'Sea-1', 'Sea-2','Sea-3', 'Road', 'Grass', 'Sand', 'Pond', 'Snow', 'Rock', 'HardRock']
@@ -143,6 +144,11 @@ class MapGeometry:
     def clear_all_lines(self):
 
         self.line_data = [[], [], [], [], [], [], [], [], [], []]
+    
+    def clear_geometry(self, layer):
+
+        self.terrain_vertices[layer] = []
+        self.terrain_edges[layer] = []
 
     def save_as(self, filepath):
         '''Save the current version of the MapGeometry back to a .bin file'''
@@ -228,18 +234,88 @@ class MapGeometry:
         for i in range(thickness):
 
             self.add_text(layer, text, location_x + i, location_y + i, size)
+    
+    def add_geometry(self, layer: str, verts: List[Tuple[float, float]], tris: List[Tuple[int, int, int]]):
+
+        # Adds some geometry to a layer, specifying the verts, and tris. 
+        # Ducky will automatically adjust triangles indices to add to existing geometry
+
+        current_geometry_max_index = -1
+
+        for tri in self.terrain_edges[layer]:
+
+            current_geometry_max_index = max(current_geometry_max_index, tri[0], tri[1], tri[2])
+        
+        self.terrain_vertices[layer] += verts
+
+        current_geometry_max_index += 1
+
+        for tri in tris:
+
+            self.terrain_edges[layer].append((tri[0] + current_geometry_max_index, tri[1] + current_geometry_max_index, tri[2] + current_geometry_max_index))
+
+        print(self.terrain_edges[layer])
+
 
 
 if __name__ == '__main__':
-    geo = MapGeometry.from_file('arid.bin')
-    geo.add_bolded_text(3,'lganic', -300, -300, 100)
-    # geo.clear_all_lines()
+    from stormworks_path import STORMWORKS_PATH
+    full_path = os.path.join(STORMWORKS_PATH, 'rom', 'data', 'tiles', 'arid_island_21_13_map_geometry - Copy.bin')
+
+    geo = MapGeometry.from_file(full_path)
+    geo.add_bolded_text(1,'lganic\nwas\nhere', -400, 300, 75, thickness=10)
+
+    geo.add_geometry('HardRock',
+                     [
+                       (0, -300),
+                       (-100, -100),
+                       (-50, -50),
+                       (0, -100),
+                       (50, -50),
+                       (100, -100),
+                     ],[
+                        (3, 1, 0),
+                        (3, 2, 1),
+                        (5, 4, 3),
+                        (5, 3, 0),
+                     ]
+                     )
+
+    geo.add_geometry('Snow',
+                     [
+                       (-300, -300),
+                       (-400, -100),
+                       (-350, -50),
+                       (-300, -100),
+                       (-250, -50),
+                       (-200, -100),
+                     ],[
+                        (3, 1, 0),
+                        (3, 2, 1),
+                        (5, 4, 3),
+                        (5, 3, 0),
+                     ]
+                     )
+    
+    geo.add_geometry('Pond',
+                     [
+                       (300, -300),
+                       (200, -100),
+                       (250, -50),
+                       (300, -100),
+                       (350, -50),
+                       (400, -100),
+                     ],[
+                        (3, 1, 0),
+                        (3, 2, 1),
+                        (5, 4, 3),
+                        (5, 3, 0),
+                     ]
+                     )
+
     img = geo.render_to_image(1000)
     img.show()
 
-    from stormworks_path import STORMWORKS_PATH
-    full_path = os.path.join(STORMWORKS_PATH, 'arid_island_5_5_map_geometry.bin')
-
-    print(full_path)
+    full_path = os.path.join(STORMWORKS_PATH, 'rom', 'data', 'tiles', 'arid_island_21_13_map_geometry.bin')
 
     geo.save_as(full_path)

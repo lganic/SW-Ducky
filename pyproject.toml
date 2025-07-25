@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sw_ducky"
+version = "0.1.0"
+description = "Ducky is a compiler / decompiler for Stormworks Map data."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name="Logan Boehm", email="me@logan-boehm.com" }
+]
+dependencies = ["pillow"]
+
+[project.urls]
+Homepage = "https://github.com/lganic/SW-Ducky/tree/main"

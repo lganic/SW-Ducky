@@ -16,15 +16,16 @@ def request_image(x, y):
 
     filename = f'moon_surface_{x}_{y}_map_geometry.bin'
 
-    print(f'Loading: {filename}')
+    print(f'Loading: {filename}', end = ' ')
 
     full_path = os.path.join(STORMWORKS_PATH, filename)
 
     try:
         geo = MapGeometry.from_file(full_path, moon = True)
+        print('Success')
     except FileNotFoundError:
-        print("FAIL")
         geo = MapGeometry(moon = True) # File not found. Assume empty
+        print('Fail!')
 
     image = geo.render_to_image(SIZE)
 

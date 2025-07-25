@@ -16,14 +16,16 @@ def request_image(x, y):
 
     filename = f'arid_island_{x}_{y}_map_geometry.bin'
 
-    print(f'Loading: {filename}')
+    print(f'Loading: {filename}', end = ' ')
 
     full_path = os.path.join(STORMWORKS_PATH, filename)
 
     try:
         geo = MapGeometry.from_file(full_path)
+        print('Success')
     except FileNotFoundError:
         geo = MapGeometry() # File not found. Assume empty
+        print('Fail!')
 
     image = geo.render_to_image(SIZE)
 

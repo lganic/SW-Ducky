@@ -7,7 +7,19 @@
 <img src="content/Ducky-Image.png" style="border-radius: 32px;" width="300">
 </div>
 
----
+## Installation
+
+Ducky can be easily installed via pip, but is not available via PyPi, so installation looks like:
+
+```bash
+git clone https://github.com/lganic/SW-Ducky.git
+cd SW-Ducky
+pip install .
+```
+
+## How To Use
+
+
 
 Ducky currently accounts for most of the fields contained within `.bin` files, and contains basic built in utilities for creating, loading, editing, and exporting bin files. An example of an edited tile is seen below, where some text and new geometry was added. 
 
@@ -136,5 +148,9 @@ The actual rendering process currently has a few unknowns associated with it, mo
   <img src="content/arctic.gif" width="30%">
   <img src="content/landscape.gif" width="30%">
 </div>
+
+There are a few example scripts contained within the `examples` folder, which shows how to create a complete render of the moon, mega island, and arid island. Some high quality renders I performed are seen below. 
+
+
 
 As you can see, Ducky does it best to abstract away much of the internal complexities of this file. Leaving a simple, straightforward interface for modifying or creating tiles. Collaboration is encouraged, for further developments. 

@@ -6,6 +6,8 @@ from tile_drawing import TileCanvas
 
 from utilitity import line_from_quad
 from parsing import read_n_using_func, read_line_quads, read_single_mesh_chunk, pack_single_mesh, pack_quads
+from path_utils import scale_path, offset_path
+from letter_data import LETTERS
 
 EARTH_LAYER_MEM_ORDER = ['Road', 'Grass', 'Sand', 'Pond', 'Snow', 'Rock', 'HardRock', 'Sea-3', 'Sea-2', 'Sea-1','Sea-0']
 EARTH_LAYER_RENDER_ORDER = ['Sea-0', 'Sea-1', 'Sea-2','Sea-3', 'Road', 'Grass', 'Sand', 'Pond', 'Snow', 'Rock', 'HardRock']
@@ -160,8 +162,75 @@ class MapGeometry:
         
         with open(filepath, 'wb') as output_file:
             output_file.write(output_bytes)
+    
+    def add_line(self, layer_index, from_coord, to_coord):
+        
+        # Convert to a quad, and add to the desired layer
+
+        def offset_with_angle(x, y, angle):
+
+            return (x + math.cos(angle), y + math.sin(angle))
+
+        dy = to_coord[1] - from_coord[1]
+        dx = to_coord[0] - from_coord[0]
+
+        angle = math.atan2(dy, dx)
+
+        a1 = angle + math.pi / 2
+        a2 = angle - math.pi / 2
+
+        c1 = offset_with_angle(*from_coord, a1)
+        c2 = offset_with_angle(*from_coord, a2)
+        c3 = offset_with_angle(*to_coord, a2)
+        c4 = offset_with_angle(*to_coord, a1)
+
+        self.line_data[layer_index].append((c1, c2, c3, c4))
+    
+    def add_path(self, layer_index, path):
+
+        for from_coord, to_coord in path:
+
+            self.add_line(layer_index, from_coord, to_coord)
+    
+    def add_text(self, layer, text, location_x, location_y, size):
+
+        text = text.upper()
+
+        start_x = location_x
+
+        location_x -= size # Makes code easier, due to the use of space guard clause
+
+        for character in text:
+
+            location_x += size
+
+            if character == ' ':
+                continue
+
+            if character == '\n':
+                location_x = start_x - size
+                location_y += size * 1.1
+            
+            if character not in LETTERS:
+                raise ValueError(f'Non-letter character specified: {character}')
+            
+            letter_path = LETTERS[character].copy()
+
+            letter_path = offset_path(scale_path(letter_path, size), location_x, location_y)
+
+            self.add_path(layer, letter_path)
+    
+    def add_bolded_text(self, layer, text, location_x, location_y, size, thickness = 5):
+
+        # Lazy way to make bolded text, but surprisingly effective!
+
+        for i in range(thickness):
+
+            self.add_text(layer, text, location_x + i, location_y + i, size)
+
 
 if __name__ == '__main__':
-    geo = MapGeometry.from_file('test.bin')
+    geo = MapGeometry.from_file('arid.bin')
+    geo.add_bolded_text(0,'lganic', -300, -300, 100)
     img = geo.render_to_image(1000)
     img.show()

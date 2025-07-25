@@ -1,4 +1,4 @@
-letters = {
+LETTERS = {
     'A': [((.1,0),(.5,1)),((.5,1),(.9,0)),((.3,.5),(.7,.5))],
     'B': [((.1,0),(.1,1)),((.1,1),(.9,.75)),((.9,.75),(.1,.5)),((.1,.5),(.9,.25)),((.9,.25),(.1,0))],
     'C': [((.1,.1),(.1,.9)),((.1,.9),(.9,1)),((.1,.1),(.9,0))],
@@ -33,9 +33,9 @@ if __name__ == '__main__':
 
     f = Frame(200, 200, 0, 1, 0, 1, fps=1)
 
-    for letter in letters:
+    for letter in LETTERS:
 
-        letter_data = letters[letter]
+        letter_data = LETTERS[letter]
 
         for c1, c2 in letter_data:
 

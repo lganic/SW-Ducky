@@ -52,11 +52,13 @@ def read_line_quads(bin, index):
     for _ in range(chunk_length // 4):
 
         (
-            x1, _, y1, _alt, _one_or_zero,
-            x2, _, y2, _alt, _one_or_zero,
-            x3, _, y3, _alt, _one_or_zero,
-            x4, _, y4, _alt, _one_or_zero
-        ) = struct.unpack('<' + 'f' * 20, bin[part_index : part_index + 80])
+            x1, _, y1, _alt1, _one_or_zero,
+            x2, _, y2, _alt2, _one_or_zero,
+            x3, _, y3, _alt3, _one_or_zero,
+            x4, _, y4, _alt4, _one_or_zero
+        ) = struct.unpack('<' + 'fffIf' * 4, bin[part_index : part_index + 80])
+
+        print(_alt1, _alt2, _alt3, _alt4)
 
         part_index += 80
 
@@ -115,11 +117,11 @@ def pack_single_mesh(verts, tris):
 
 def pack_single_quad(quad):
 
-    return struct.pack('<' + 'f' * 20,
-            quad[0][0], 0, quad[0][1], 0, 1,
-            quad[1][0], 0, quad[1][1], 0, 0,
-            quad[2][0], 0, quad[2][1], 0, 0,
-            quad[3][0], 0, quad[3][1], 0, 1
+    return struct.pack('<' + 'fffIf' * 4,
+            quad[0][0], 0, quad[0][1], 1110254360, 1,
+            quad[1][0], 0, quad[1][1], 1110254360, 0,
+            quad[2][0], 0, quad[2][1], 1110254360, 0,
+            quad[3][0], 0, quad[3][1], 1110254360, 1
         )
 
 def pack_quads(quad_list):

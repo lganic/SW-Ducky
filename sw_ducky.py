@@ -231,6 +231,14 @@ class MapGeometry:
 
 if __name__ == '__main__':
     geo = MapGeometry.from_file('arid.bin')
-    geo.add_bolded_text(0,'lganic', -300, -300, 100)
+    geo.add_bolded_text(3,'lganic', -300, -300, 100)
+    # geo.clear_all_lines()
     img = geo.render_to_image(1000)
     img.show()
+
+    from stormworks_path import STORMWORKS_PATH
+    full_path = os.path.join(STORMWORKS_PATH, 'arid_island_5_5_map_geometry.bin')
+
+    print(full_path)
+
+    geo.save_as(full_path)

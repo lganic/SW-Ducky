@@ -1,4 +1,10 @@
-def scale_path(path, scale):
+from typing import List, Tuple
+
+def scale_path(path: List[Tuple[Tuple[float, float]]], scale: float) -> List[Tuple[Tuple[float, float]]]:
+
+    '''
+    Scale a path by a scalar amount
+    '''
 
     output_path = []
 
@@ -14,7 +20,11 @@ def scale_path(path, scale):
     
     return output_path
 
-def offset_path(path, offset_x, offset_y):
+def offset_path(path: List[Tuple[Tuple[float, float]]], offset_x: float, offset_y: float) -> List[Tuple[Tuple[float, float]]]:
+
+    '''
+    Offset a path by a certain X,Y amount
+    '''
 
     output_path = []
 

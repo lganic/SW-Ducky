@@ -1,6 +1,12 @@
+from typing import List, Tuple
+
 import math
 
-def is_cord_valid(coord):
+def is_cord_valid(coord: Tuple[float, float]) -> bool:
+
+    '''
+    Determine if an X,Y coordinate contains NaNs or infs. 
+    '''
 
     if math.isnan(coord[0]) or math.isinf(coord[0]):
         return False
@@ -10,7 +16,11 @@ def is_cord_valid(coord):
     
     return True
 
-def is_poly_valid(coords):
+def is_poly_valid(coords: List[Tuple[float, float]]) -> bool:
+
+    '''
+    Determine if a polygon of X,Y coordinates contains NaNs or infs. 
+    '''
 
     for c in coords:
 
@@ -19,7 +29,11 @@ def is_poly_valid(coords):
     
     return True
 
-def line_from_quad(quad):
+def line_from_quad(quad: Tuple[Tuple[float, float]]) -> List[Tuple[float, float]]:
+
+    '''
+    Given a quad, return two x, y coordinates which represent the line formed by that quad
+    '''
 
     def avg_2_coords(coords):
 

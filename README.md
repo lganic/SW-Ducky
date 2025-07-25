@@ -152,5 +152,19 @@ The actual rendering process currently has a few unknowns associated with it, mo
 There are a few example scripts contained within the `examples` folder, which shows how to create a complete render of the moon, mega island, and arid island. Some high quality renders I performed are seen below. 
 
 
+### Mega Island:
+<div style="text-align: center;">
+<img src="content/mega-full.png" style="border-radius: 32px;" width="800">
+</div>
+
+### Arid Island:
+<div style="text-align: center;">
+<img src="content/arid-full.png" style="border-radius: 32px;" width="800">
+</div>
+
+### Moon:
+<div style="text-align: center;">
+<img src="content/moon-full.png" style="border-radius: 32px;" width="800">
+</div>
 
 As you can see, Ducky does it best to abstract away much of the internal complexities of this file. Leaving a simple, straightforward interface for modifying or creating tiles. Collaboration is encouraged, for further developments. 

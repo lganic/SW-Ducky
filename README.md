@@ -9,7 +9,7 @@
 
 ---
 
-Ducky currently accounts for all known fields contained within `.bin` files, and contains basic built in utilities for creating, loading, editing, and exporting bin files. An example of an edited tile is seen below, where some text and new geometry was added. 
+Ducky currently accounts for most of the fields contained within `.bin` files, and contains basic built in utilities for creating, loading, editing, and exporting bin files. An example of an edited tile is seen below, where some text and new geometry was added. 
 
 <div style="text-align: center;">
 <img src="content/Edit-1.png" style="border-radius: 32px;" width="500">
@@ -52,7 +52,7 @@ geo.add_geometry('Pond',[
 geo.save_as(tile_path)
 ```
 
-Ducky also has an internal rendering pipeline, that uses python's `pillow` module. This can be used to render out tile images straight to pillow `Image` objects. Therefore a quick script to load, and preview a tile looks like:
+Ducky also has a built in function to render tiles, that uses python's `pillow` module. This can be used to render out tile images straight to pillow `Image` objects. Therefore a quick script to load, and preview a tile looks like:
 
 ```python
 from sw_ducky import MapGeometry

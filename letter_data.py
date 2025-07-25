@@ -26,19 +26,3 @@ LETTERS = {
     'Y': [((.1,1),(.5,.5)),((.1,0),(.9,1))],
     'Z': [((.1,1),(.9,1)),((.9,1),(.1,0)),((.1,0),(.9,0))],
 }
-
-if __name__ == '__main__':
-
-    from clamped_frame import Frame
-
-    f = Frame(200, 200, 0, 1, 0, 1, fps=1)
-
-    for letter in LETTERS:
-
-        letter_data = LETTERS[letter]
-
-        for c1, c2 in letter_data:
-
-            f.line(c1, c2, (255, 255, 255))
-        
-        f.update()

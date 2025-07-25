@@ -15,3 +15,7 @@ dependencies = ["pillow"]
 
 [project.urls]
 Homepage = "https://github.com/lganic/SW-Ducky/tree/main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sw_ducky"]

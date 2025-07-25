@@ -7,24 +7,22 @@ struct XYZ{
 };
 
 
-struct Single_Mesh{
+struct SingleMesh{
     u16 num_positions;
     XYZ positions[num_positions];
     u16 num_edges;
     u16 edges[num_edges];
 };
 
-struct LineSegment{
-    float from_X;
-    float from_Y_ZERO;
-    float from_Z;
-    float a;
+struct CoordinateGroup{
+    XYZ location;
+    float useless;
     float oneorzero;
 };
 
 struct LineStuff{
     u16 length;
-    LineSegment segments[length];    
+    CoordinateGroup segments[length];    
 };
 
 struct MapData{

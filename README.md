@@ -17,9 +17,9 @@ cd SW-Ducky
 pip install .
 ```
 
-## How To Use
+## Info
 
-
+To read how the .bin format works, see this markdown file. Be warned, it's not for the faint of heart: [Abandon all hope, ye who enter here.](Format.md)
 
 Ducky currently accounts for most of the fields contained within `.bin` files, and contains basic built in utilities for creating, loading, editing, and exporting bin files. An example of an edited tile is seen below, where some text and new geometry was added. 
 

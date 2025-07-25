@@ -18,7 +18,7 @@ def request_image(x, y):
 
     print(f'Loading: {filename}', end = ' ')
 
-    full_path = os.path.join(STORMWORKS_PATH, filename)
+    full_path = os.path.join(STORMWORKS_PATH, 'rom', 'data', 'tiles', filename)
 
     try:
         geo = MapGeometry.from_file(full_path, moon = True)

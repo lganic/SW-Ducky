@@ -1,6 +1,6 @@
 # SW-Ducky
 
-### A python library for creating, loading, and exporting Stormworks Map `.bin` files.
+### A python library for creating, loading, editing, and exporting Stormworks Map `.bin` files.
 ---
 
 <div style="text-align: center;">

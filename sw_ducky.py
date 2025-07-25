@@ -209,7 +209,8 @@ class MapGeometry:
 
             if character == '\n':
                 location_x = start_x - size
-                location_y += size * 1.1
+                location_y -= size * 1.3
+                continue
             
             if character not in LETTERS:
                 raise ValueError(f'Non-letter character specified: {character}')

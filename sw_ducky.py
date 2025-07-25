@@ -163,13 +163,13 @@ class MapGeometry:
         with open(filepath, 'wb') as output_file:
             output_file.write(output_bytes)
     
-    def add_line(self, layer_index, from_coord, to_coord):
+    def add_line(self, layer_index, from_coord, to_coord, thickness = 4):
         
         # Convert to a quad, and add to the desired layer
 
         def offset_with_angle(x, y, angle):
 
-            return (x + math.cos(angle), y + math.sin(angle))
+            return (x + thickness * math.cos(angle), y + thickness * math.sin(angle))
 
         dy = to_coord[1] - from_coord[1]
         dx = to_coord[0] - from_coord[0]
@@ -179,10 +179,10 @@ class MapGeometry:
         a1 = angle + math.pi / 2
         a2 = angle - math.pi / 2
 
-        c1 = offset_with_angle(*from_coord, a1)
-        c2 = offset_with_angle(*from_coord, a2)
-        c3 = offset_with_angle(*to_coord, a2)
-        c4 = offset_with_angle(*to_coord, a1)
+        c1 = offset_with_angle(*from_coord, a2)
+        c2 = offset_with_angle(*from_coord, a1)
+        c3 = offset_with_angle(*to_coord, a1)
+        c4 = offset_with_angle(*to_coord, a2)
 
         self.line_data[layer_index].append((c1, c2, c3, c4))
     

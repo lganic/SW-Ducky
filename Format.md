@@ -1,6 +1,6 @@
 # Format Documentation
 
-Here, I will lay out how the geometry bin files work. As with most things Stormworks related, the implementation is janky as hell, but it does some pretty cool things along the way. Let's start with the basics. As you probably know, each .bin file covers a square 1km^2 area. For the large main islands, this means that they consist of multiple tiles assembled together. For the main island it consists of a 20 x 10 tile area. The tiles indexing starts from the bottom left of the island, and changes with increasing x and y. So the tile `16_4` would be 1km to the right of, and 1km up from the tile: `15_3`. 
+Here, I will lay out how the geometry bin files work. As with most things Stormworks related, the implementation is janky as hell, but it does some pretty cool things along the way. Let's start with the basics. As you probably know, each .bin file covers a square 1km area. For the large main islands, this means that they consist of multiple tiles assembled together. For the main island it consists of a 20 x 10 tile area. The tiles indexing starts from the bottom left of the island, and changes with increasing x and y. So the tile `16_4` would be 1km to the right of, and 1km up from the tile: `15_3`. 
 
 All geometry within the tile is represented with respect to the local coordinates of the tile, being centered at the center of the tile. Given that the tile is `1000m x 1000m`, all values for coordinates, lines, etc are in the range `[-500, 500]`, as seen in the diagram below. 
 

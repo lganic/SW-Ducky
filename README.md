@@ -132,9 +132,9 @@ Wether or not that is what they are *actually* called in the code is kinda unkno
 
 The actual rendering process currently has a few unknowns associated with it, mostly related to the ways that lines are represented. However the current rendering process accounts for most of the weirdness. 
 <div align="center">
-  <img src="content/multibase.gif" width="33%">
-  <img src="content/arctic.gif" width="33%">
-  <img src="content/landscape.gif" width="33%">
+  <img src="content/multibase.gif" width="30%">
+  <img src="content/arctic.gif" width="30%">
+  <img src="content/landscape.gif" width="30%">
 </div>
 
 As you can see, Ducky does it best to abstract away much of the internal complexities of this file. Leaving a simple, straightforward interface for modifying or creating tiles. Collaboration is encouraged, for further developments. 

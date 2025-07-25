@@ -1,8 +1,8 @@
 # Format Documentation
 
-Here I will lay out how the geometry bin files work. As with most things Stormworks related, the implementation is janky as hell, but does some pretty cool things along the way. Lets start with the basics. As you probably know, each .bin file covers a square 1km^2 area. For islands, this means that it consists of multiple tiles, assembled together. For the main island, the island consists of a 20 x 10 tile area. The tiles indexing start from the bottom left of the island, and change with increasing x and y. So the tile `16_4` would be 1km to the right of, and 1km up from the tile: `15_3`. 
+Here, I will lay out how the geometry bin files work. As with most things Stormworks related, the implementation is janky as hell, but it does some pretty cool things along the way. Let's start with the basics. As you probably know, each .bin file covers a square 1km^2 area. For the large main islands, this means that they consist of multiple tiles assembled together. For the main island it consists of a 20 x 10 tile area. The tiles indexing starts from the bottom left of the island, and changes with increasing x and y. So the tile `16_4` would be 1km to the right of, and 1km up from the tile: `15_3`. 
 
-All geometry within the tile is represented with respect to the local coordinates of the tile, being centered at the center of the tile. Given that the tile is `1000m x 1000m` all values for coordinates, lines, etc are in the range `[-500, 500]`, as seen in the diagram below. 
+All geometry within the tile is represented with respect to the local coordinates of the tile, being centered at the center of the tile. Given that the tile is `1000m x 1000m`, all values for coordinates, lines, etc are in the range `[-500, 500]`, as seen in the diagram below. 
 
 <div style="text-align: center;">
 <img src="content/mc-grid.png" style="border-radius: 32px;" width="500">
@@ -74,9 +74,9 @@ The XYZ values are structured like so:
 
 The number of elements in the `Triangle Data` is always a factor of 3, as each group of 3 indicates the 3 indices of the XYZ values for each triangle in the mesh. 
 
-I can hear you asking quite a few questions here. First off, yes they did change how they describe array length halfway through. For the vertex length, its the number of 3 float groups. In the triangle data, its the total number of values? No idea why they did that. But to be clear:
+I can hear you asking quite a few questions here. First off, yes, they did change how they describe array length halfway through. For the vertex length, its the number of 3 float groups. In the triangle data, it's the total number of values? No idea why they did that. But to be clear:
 
-If you are saving a mesh, with these vertexes:
+If you are saving a mesh with these vertices:
 
 ```python
 (3.0, 0.0, 3.0),
@@ -101,13 +101,13 @@ Much like 3D rendering, the triangle vertex pairs have a certain winding order, 
 <img src="content/winding-order-triangle-unity.png" style="border-radius: 32px;" width="500">
 </div>
 
-Putting this all together, we can see what a single mesh layer looks like. I have shaded the triangles in green, and also highlighted the edges of each triangle in the mesh, to really illustrate what we are looking at.  
+Putting this all together, we can see what a single mesh layer looks like. I have shaded the triangles in green and also highlighted the edges of each triangle in the mesh, to really illustrate what we are looking at.  
 
 <div style="text-align: center;">
 <img src="content/Mesh.png" style="border-radius: 32px;" width="400">
 </div>
 
-Each of the 11 layers has a specific color that it is rendered with. These have default values, but as you know most can be changed when drawing the map in Lua. The default layer values are as follows:
+Each of the 11 layers has a specific color that it is rendered with. These have default values, but as you know, most can be changed when drawing the map in Lua. The default layer values are as follows:
 
 
 <div align="center">

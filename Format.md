@@ -4,7 +4,7 @@ Here, I will lay out how the geometry bin files work. As with most things Stormw
 
 All geometry within the tile is represented with respect to the local coordinates of the tile, being centered at the center of the tile. Given that the tile is `1000m x 1000m`, all values for coordinates, lines, etc are in the range `[-500, 500]`, as seen in the diagram below. 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/mc-grid.png" style="border-radius: 32px;" width="500">
 </div>
 
@@ -55,9 +55,9 @@ The way that the actual mesh chunks work is really cool, but they make some real
 
 | Index| Name| Description|
 | -----| ------------------| -----------------|
-| 0| `Vertex Length Prefix`| The number of XYZ values in the following block. So if the following block just contains one coordinate, this value will be 1|
+| 0| `Vertex Length Prefix` (signed 16 bit int)| The number of XYZ values in the following block. So if the following block just contains one coordinate, this value will be 1|
 | 1| `Vertex Data`| An array of XYZ values. The total number of floats in this array = 3 * `Vertex Length Prefix`|
-| 2| `Triangle Length Prefix`| The number of u16 values in the following array|
+| 2| `Triangle Length Prefix` (signed 16 bit int)| The number of u16 values in the following array|
 | 3| `Triangle Data`| An array of u16 values. The total number of u16 values in the array = `Triangle Length Prefix`|
 </div>
 
@@ -93,17 +93,36 @@ And the triangles
 
 The `Vertex Length Prefix` will be `4` and the `Triangle Length Prefix` will be `6`. Got it? 
 
-Now we can move onto the other blunder they just made: **This is 2d data, why are they encoding full XYZ coordinates.** I have no idea why they did this. The Y coordinate is always zero in all the files. It is purely junk data. If you think that's bad, I wouldn't recommend reading further, because it gets way worse. 
+Now we can move onto another blunder they just made: **This is 2d data, why are they encoding full XYZ coordinates.** I have no idea why they did this. The Y coordinate is always zero in all the files. It is purely junk data. If you think that's bad, I wouldn't recommend reading further, because it gets way worse. 
+
+And another crazy error they just made: **THEY USED SIGNED INTEGERS TO ENCODE A ALWAYS POSITIVE NUMBER**. This seriously hits them when encoding triangles, as that area will naturally encode a value 3 times bigger than it needs to be. (since they denote the number of indices, not the number of triangles, so 6 triangles would result in that number being 18). So... doing some math, we find that this filetype should break at exactly 10923 triangles. Plugging that into ducky, and having it generate tiles with increasing number of triangles: 
+
+<div align="center">
+<img src="content/Blunder.png" style="border-radius: 32px;" width="500">
+</div>
+
+Yup! It breaks! That gives us a final table of the max amount of stuff that can fit into a **single layer**:
+
+<div align="center">
+
+| Name| Max Amount in 1 Layer|
+| ------------------| -----------------|
+| Vertices|32767
+| Triangles|10922
+| Quads|8191
+</div>
+
+We will talk about quads in a moment, but first we need to talk about some more nonsense they pull:
 
 Much like 3D rendering, the triangle vertex pairs have a certain winding order, so backface culling can be applied. For some reason, the mesh triangles on the map are rendered with backface culling, even though they always face forward. So, the face data for the mesh segments needs to be ordered so that it has a `Counter-Clockwise` winding order, otherwise it won't be rendered. 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/winding-order-triangle-unity.png" style="border-radius: 32px;" width="500">
 </div>
 
 Putting this all together, we can see what a single mesh layer looks like. I have shaded the triangles in green and also highlighted the edges of each triangle in the mesh, to really illustrate what we are looking at.  
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/Mesh.png" style="border-radius: 32px;" width="400">
 </div>
 
@@ -138,7 +157,7 @@ See how the road layer doesn't have the road, but rather just canvases the entir
 
 When each mesh is rendered with the proper color, and in the render order discussed previously, we get an image which looks a lot like:
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/mega-noline.png" style="border-radius: 32px;" width="400">
 </div>
 
@@ -171,7 +190,7 @@ The quads **also have a winding order**. The quadrilateral for the lines needs t
 
 The way that Stormworks renders these lines based on the quadrilateral appears to be like so:
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/Quad-Rendering.png" style="border-radius: 32px;" width="400">
 </div>
 
@@ -179,13 +198,13 @@ This is again, most likely accomplished through texture based rendering, and the
 
 Adding that back into our render from earlier, we get our final result: 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/mega-result.png" style="border-radius: 32px;" width="500">
 </div>
 
 Yeah that picture didn't really have too many lines in it. But here's one that does:
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/big-result.png" style="border-radius: 32px;" width="500">
 </div>
 

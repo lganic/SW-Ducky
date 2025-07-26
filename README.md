@@ -3,7 +3,7 @@
 ### A python library for creating, loading, editing, and exporting Stormworks Map `.bin` files.
 ---
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/Ducky-Image.png" style="border-radius: 32px;" width="300">
 </div>
 
@@ -23,7 +23,7 @@ To read how the .bin format works, see this markdown file. Be warned, it's not f
 
 Ducky currently accounts for most of the fields contained within `.bin` files, and contains basic built in utilities for creating, loading, editing, and exporting bin files. An example of an edited tile is seen below, where some text and new geometry was added. 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/Edit-1.png" style="border-radius: 32px;" width="500">
 </div>
 
@@ -79,7 +79,7 @@ img.show()
 
 Resulting image: 
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/arctic-tile.png" style="border-radius: 32px;" width="400">
 </div>
 
@@ -99,7 +99,7 @@ img = geo.render_to_image(image_size)
 img.show()
 ```
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/arctic-tile-ps.png" style="border-radius: 32px;" width="400">
 </div>
 
@@ -117,7 +117,7 @@ img = geo.render_to_image(image_size)
 img.show()
 ```
 
-<div style="text-align: center;">
+<div align="center">
 <img src="content/moon-tile.png" style="border-radius: 32px;" width="400">
 </div>
 
@@ -153,17 +153,17 @@ There are a few example scripts contained within the `examples` folder, which sh
 
 
 ### Mega Island:
-<div style="text-align: center;">
+<div align="center">
 <img src="content/mega-full.png" style="border-radius: 32px;" width="800">
 </div>
 
 ### Arid Island:
-<div style="text-align: center;">
+<div align="center">
 <img src="content/arid-full.png" style="border-radius: 32px;" width="800">
 </div>
 
 ### Moon:
-<div style="text-align: center;">
+<div align="center">
 <img src="content/moon-full.png" style="border-radius: 32px;" width="800">
 </div>
 

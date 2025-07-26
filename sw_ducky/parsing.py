@@ -142,6 +142,12 @@ def pack_single_mesh(verts: List[Tuple[float, float]], tris: List[Tuple[int, int
 
     verts_bytes = b''
 
+    if len(verts) > 32767:
+        raise OverflowError('The number of vertices in this tile is too much for StormWorks to render. I could still export it, but the tile will not render properly, and may crash the game.')
+
+    if len(tris) > 10922:
+        raise OverflowError('The number of triangles in this tile is too much for StormWorks to render. I could still export it, but the tile will not render properly, and may crash the game.')
+
     # Pack all the vertices
     for vert in verts:
 
@@ -184,6 +190,9 @@ def pack_quads(quad_list: List[Tuple[Tuple[float, float]]]) -> bytes:
     '''
 
     output_bytes = b''
+
+    if len(quad_list) > 8191:
+        raise OverflowError('The number of line segments in this tile is too much for StormWorks to render. I could still export it, but the tile will not render properly, and may crash the game.')
 
     for quad in quad_list:
 

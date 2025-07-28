@@ -202,7 +202,7 @@ Adding that back into our render from earlier, we get our final result:
 <img src="content/mega-result.png" style="border-radius: 32px;" width="500">
 </div>
 
-Yeah that picture didn't really have too many lines in it. But here's one that does:
+Yeah that picture didn't really have too many lines in it. The most noticeable line is one that is put along the coastline. Here's a map tile which has a lot more lines on it:
 
 <div align="center">
 <img src="content/big-result.png" style="border-radius: 32px;" width="500">

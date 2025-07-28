@@ -1,8 +1,8 @@
 # Format Documentation
 
-Here, I will lay out how the geometry bin files work. As with most things Stormworks related, the implementation is janky as hell, but it does some pretty cool things along the way. Let's start with the basics. As you probably know, each .bin file covers a square 1km area. For the large main islands, this means that they consist of multiple tiles assembled together. For the main island it consists of a 20 x 10 tile area. The tiles indexing starts from the bottom left of the island, and changes with increasing x and y. So the tile `16_4` would be 1km to the right of, and 1km up from the tile: `15_3`. 
+Here, I will lay out how the geometry bin files work. As with most things Stormworks related, the implementation is janky as hell, but it does some pretty cool things along the way. Let's start with the basics. As you probably know, each .bin file covers a square 1km area. For the large main islands, this means that they consist of multiple tiles assembled together. For the main island it consists of a 20 x 10 tile area. The tiles indexing starts from the bottom left of the island, and changes with increasing x and y. So the tile`16_4` would be 1km to the right of, and 1km up from the tile:`15_3`. 
 
-All geometry within the tile is represented with respect to the local coordinates of the tile, being centered at the center of the tile. Given that the tile is `1000m x 1000m`, all values for coordinates, lines, etc are in the range `[-500, 500]`, as seen in the diagram below. 
+All geometry within the tile is represented with respect to the local coordinates of the tile, being centered at the center of the tile. Given that the tile is`1000m x 1000m`, all values for coordinates, lines, etc are in the range`[-500, 500]`, as seen in the diagram below. 
 
 <div align="center">
 <img src="content/mc-grid.png" style="border-radius: 32px;" width="500">
@@ -10,7 +10,7 @@ All geometry within the tile is represented with respect to the local coordinate
 
 ## Mesh Chunks
 
-Now we can get into the file itself. The file starts with `11` consecutive "Mesh Chunks". The order that the chunks appear in the file is not the order they need to be rendered in. *because that would make too much sense*. The order in which the mesh chunks appear in the file is this:
+Now we can get into the file itself. The file starts with`11` consecutive "Mesh Chunks". The order that the chunks appear in the file is not the order they need to be rendered in. *because that would make too much sense*. The order in which the mesh chunks appear in the file is this:
 
 <div align="center">
 
@@ -55,10 +55,10 @@ The way that the actual mesh chunks work is really cool, but they make some real
 
 | Index| Name| Description|
 | -----| ------------------| -----------------|
-| 0| `Vertex Length Prefix` (signed 16 bit int)| The number of XYZ values in the following block. So if the following block just contains one coordinate, this value will be 1|
-| 1| `Vertex Data`| An array of XYZ values. The total number of floats in this array = 3 * `Vertex Length Prefix`|
-| 2| `Triangle Length Prefix` (signed 16 bit int)| The number of u16 values in the following array|
-| 3| `Triangle Data`| An array of u16 values. The total number of u16 values in the array = `Triangle Length Prefix`|
+| 0|`Vertex Length Prefix` (signed 16 bit int)| The number of XYZ values in the following block. So if the following block just contains one coordinate, this value will be 1|
+| 1|`Vertex Data`| An array of XYZ values. The total number of floats in this array = 3 *`Vertex Length Prefix`|
+| 2|`Triangle Length Prefix` (signed 16 bit int)| The number of u16 values in the following array|
+| 3|`Triangle Data`| An array of u16 values. The total number of u16 values in the array =`Triangle Length Prefix`|
 </div>
 
 The XYZ values are structured like so:
@@ -72,7 +72,7 @@ The XYZ values are structured like so:
 | 2|Z (float)| Z location|
 </div>
 
-The number of elements in the `Triangle Data` is always a factor of 3, as each group of 3 indicates the 3 indices of the XYZ values for each triangle in the mesh. 
+The number of elements in the`Triangle Data` is always a factor of 3, as each group of 3 indicates the 3 indices of the XYZ values for each triangle in the mesh. 
 
 I can hear you asking quite a few questions here. First off, yes, they did change how they describe array length halfway through. For the vertex length, its the number of 3 float groups. In the triangle data, it's the total number of values? No idea why they did that. But to be clear:
 
@@ -91,7 +91,7 @@ And the triangles
 (1, 2, 3)
 ```
 
-The `Vertex Length Prefix` will be `4` and the `Triangle Length Prefix` will be `6`. Got it? 
+The`Vertex Length Prefix` will be`4` and the`Triangle Length Prefix` will be`6`. Got it? 
 
 Now we can move onto another blunder they just made: **This is 2d data, why are they encoding full XYZ coordinates.** I have no idea why they did this. The Y coordinate is always zero in all the files. It is purely junk data. If you think that's bad, I wouldn't recommend reading further, because it gets way worse. 
 
@@ -114,7 +114,7 @@ Yup! It breaks! That gives us a final table of the max amount of stuff that can 
 
 We will talk about quads in a moment, but first we need to talk about some more nonsense they pull:
 
-Much like 3D rendering, the triangle vertex pairs have a certain winding order, so backface culling can be applied. For some reason, the mesh triangles on the map are rendered with backface culling, even though they always face forward. So, the face data for the mesh segments needs to be ordered so that it has a `Counter-Clockwise` winding order, otherwise it won't be rendered. 
+Much like 3D rendering, the triangle vertex pairs have a certain winding order, so backface culling can be applied. For some reason, the mesh triangles on the map are rendered with backface culling, even though they always face forward. So, the face data for the mesh segments needs to be ordered so that it has a`Counter-Clockwise` winding order, otherwise it won't be rendered. 
 
 <div align="center">
 <img src="content/winding-order-triangle-unity.png" style="border-radius: 32px;" width="500">
@@ -133,17 +133,17 @@ Each of the 11 layers has a specific color that it is rendered with. These have 
 
 | Layer Name | Earth Color (R, G, B) | Moon Color (R, G, B)  |
 | ---------- | --------------------- | --------------------- |
-| Sea/Moon-0 | `(50, 121, 134)      `|` (134, 137, 151)     `|
-| Sea/Moon-1 | `(61, 142, 159)      `|` (109, 112, 126)     `|
-| Sea/Moon-2 | `(72, 163, 184)      `|` (84, 87, 101)       `|
-| Sea/Moon-3 | `(83, 185, 209)      `|` (59, 62, 76)        `|
-| Land       | `(208, 208, 198)     `|                       |
-| Grass      | `(164, 184, 117)     `|                       |
-| Sand       | `(227, 208, 141)     `|                       |
-| Shallows   | `(83, 185, 209)      `|                       |
-| Snow       | `(255, 255, 255)     `|                       |
-| Gravel     | `(139, 110, 92)      `|                       |
-| Rock       | `(88, 62, 45)        `|                       |
+| Sea/Moon-0 |`(50, 121, 134)`|` (134, 137, 151)`|
+| Sea/Moon-1 |`(61, 142, 159)`|` (109, 112, 126)`|
+| Sea/Moon-2 |`(72, 163, 184)`|` (84, 87, 101) `|
+| Sea/Moon-3 |`(83, 185, 209)`|` (59, 62, 76)  `|
+| Land       |`(208, 208, 198)`|                       |
+| Grass      |`(164, 184, 117)`|                       |
+| Sand       |`(227, 208, 141)`|                       |
+| Shallows   |`(83, 185, 209)`|                       |
+| Snow       |`(255, 255, 255)`|                       |
+| Gravel     |`(139, 110, 92)`|                       |
+| Rock       |`(88, 62, 45)  `|                       |
 
 </div>
 
@@ -165,7 +165,7 @@ Cool! Easy! Just some weird hiccups along the way. But there's one more thing, w
 
 ## Quad Chunks
 
-You may be confused. I just said we are going to talk about lines, why is the title of this area "Quad Chunks"? That's because, in their infinite wisdom, the devs decided to represent lines, as *quadrilaterals*. Why did they do this? Probably has to do with them rendering their lines using textures, rather than rendering them as actual lines. This makes sense if you look at a lot of the lines on the map, as some areas show weird geometry consistent with strange texture warping. There are `10` Quad Chunk groups, each representing a different group of lines. What each group represents is still unknown, as there is probably some meaning to each group, (like group 4 being buildings or somethin idk). We do however know how they are structured. And... it's bad. Like the Mesh Chunk, each Quad Chunk is length prefixed, however this time the length indicates the number of **Coordinate Groups** that are in the following chunk. 4 **Coordinate Groups** define a single quadrilateral. 
+You may be confused. I just said we are going to talk about lines, why is the title of this area "Quad Chunks"? That's because, in their infinite wisdom, the devs decided to represent lines, as *quadrilaterals*. Why did they do this? Probably has to do with them rendering their lines using textures, rather than rendering them as actual lines. This makes sense if you look at a lot of the lines on the map, as some areas show weird geometry consistent with strange texture warping. There are`10` Quad Chunk groups, each representing a different group of lines. What each group represents is still unknown, as there is probably some meaning to each group, (like group 4 being buildings or somethin idk). We do however know how they are structured. And... it's bad. Like the Mesh Chunk, each Quad Chunk is length prefixed, however this time the length indicates the number of **Coordinate Groups** that are in the following chunk. 4 **Coordinate Groups** define a single quadrilateral. 
 
 What do I mean by coordinate group? This is how they are represented:
 
@@ -177,7 +177,7 @@ What do I mean by coordinate group? This is how they are represented:
 | 1|Y (float)| Y location *(always zero)*
 | 2|Z (float)| Z location|
 | 3|Altitude (4 bytes) | I don't actually know what this field is. It looks like an altitude? It could potentially be a color. However **it does nothing** leaving this field zero has no effect on gameplay as far as I can tell. Ducky does not do anything with this field, it ignores it on import, and leaves it 0 on export.|
-| 4|One Or Zero (float)| This field is always either 1 or 0, in a specific pattern. For each element of the quadrilateral, this field follows this pattern: `1,0,0,1`|
+| 4|One Or Zero (float)| This field is always either 1 or 0, in a specific pattern. For each element of the quadrilateral, this field follows this pattern:`1,0,0,1`|
 </div>
 
 Now dear reader, I again hear your cries. Yes they did encode this 2D element with 3D coordinates again. And yes, they also somehow managed to tack on 2 additional fields which do *absolutely nothing*. And yes, they are encoding a boolean variable as a float. 
@@ -186,7 +186,7 @@ I feel I have to point out again the incredible nonsense that this is before con
 
 ***BUT WAIT THERES MORE***
 
-The quads **also have a winding order**. The quadrilateral for the lines needs to be encoded `Clockwise`. You may notice that this is backwards to how the mesh chunks are. You would be correct, they pulled another switcheroo. 
+The quads **also have a winding order**. The quadrilateral for the lines needs to be encoded`Clockwise`. You may notice that this is backwards to how the mesh chunks are. You would be correct, they pulled another switcheroo. 
 
 The way that Stormworks renders these lines based on the quadrilateral appears to be like so:
 

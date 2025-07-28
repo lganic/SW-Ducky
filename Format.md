@@ -136,7 +136,7 @@ Each of the 11 layers has a specific color that it is rendered with. These have 
 | Sea/Moon-0 |`(50, 121, 134)`|`(134, 137, 151)`|
 | Sea/Moon-1 |`(61, 142, 159)`|`(109, 112, 126)`|
 | Sea/Moon-2 |`(72, 163, 184)`|`(84, 87, 101)`|
-| Sea/Moon-3 |`(83, 185, 209)`|`(59, 62, 76)  `|
+| Sea/Moon-3 |`(83, 185, 209)`|`(59, 62, 76)`|
 | Land       |`(208, 208, 198)`|                       |
 | Grass      |`(164, 184, 117)`|                       |
 | Sand       |`(227, 208, 141)`|                       |

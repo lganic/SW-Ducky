@@ -37,7 +37,7 @@ from sw_ducky import MapGeometry
 geo = MapGeometry.from_file('arid.bin')
 geo.add_bolded_text(1,'lganic\nwas\nhere', -400, 300, 75, thickness=10)
 
-geo.add_geometry('HardRock',[
+geo.add_geometry('Rock',[
                     # Vertex Data
                     (0, -300), (-100, -100), (-50, -50), (0, -100), (50, -50), (100, -100),
                     ],[
@@ -53,7 +53,7 @@ geo.add_geometry('Snow',[
                     (3, 1, 0), (3, 2, 1), (5, 4, 3), (5, 3, 0),
                     ])
 
-geo.add_geometry('Pond',[
+geo.add_geometry('Shallows',[
                     # Vertex Data
                     (300, -300), (200, -100), (250, -50), (300, -100), (350, -50), (400, -100),
                     ],[
@@ -127,20 +127,19 @@ These are the names of each layer in Ducky, in the order they are rendered:
 <div align="center">
 
 | Index | Earth  | Moon|
-| ----- | ------------------ | ----------------- |
-| 0     | Sea-0              | Moon-0            |
-| 1     | Sea-1              | Moon-1            |
-| 2     | Sea-2              | Moon-2            |
-| 3     | Sea-3              | Moon-3            |
-| 4     | Road               | Blank-1           |
-| 5     | Grass              | Blank-2           |
-| 6     | Sand               | Blank-3           |
-| 7     | Pond               | Blank-4           |
-| 8     | Snow               | Blank-5           |
-| 9     | Rock               | Blank-6           |
-| 10    | HardRock           | Blank-7           |
+| ----- | -------------- | ----------------- |
+| 0     | Sea-0          | Moon-0            |
+| 1     | Sea-1          | Moon-1            |
+| 2     | Sea-2          | Moon-2            |
+| 3     | Sea-3          | Moon-3            |
+| 4     | Land           | Blank-1           |
+| 5     | Grass          | Blank-2           |
+| 6     | Sand           | Blank-3           |
+| 7     | Shallows       | Blank-4           |
+| 8     | Snow           | Blank-5           |
+| 9     | Gravel         | Blank-6           |
+| 10    | Rock           | Blank-7           |
 </div>
-Wether or not that is what they are *actually* called in the code is kinda unknown. Would love to hear if someone knows. These are my best guesses. 
 
 The actual rendering process currently has a few unknowns associated with it, mostly related to the ways that lines are represented. However the current rendering process accounts for most of the weirdness. 
 <div align="center">

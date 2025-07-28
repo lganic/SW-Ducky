@@ -16,13 +16,13 @@ Now we can get into the file itself. The file starts with `11` consecutive "Mesh
 
 | Index| Earth| Moon|
 | -----| ------------------| -----------------|
-| 0| Road | Blank-1|
+| 0| Land | Blank-1|
 | 1| Grass| Blank-2|
 | 2| Sand | Blank-3|
-| 3| Pond | Blank-4|
+| 3| Shallows | Blank-4|
 | 4| Snow | Blank-5|
-| 5| Rock | Blank-6|
-| 6| HardRock| Blank-7|
+| 5| Gravel | Blank-6|
+| 6| Rock| Blank-7|
 | 7| Sea-3| Moon-3|
 | 8| Sea-2| Moon-2|
 | 9| Sea-1| Moon-1|
@@ -40,13 +40,13 @@ However in order to make things look right, they actually need to be rendered in
 | 1| Sea-1| Moon-1|
 | 2| Sea-2| Moon-2|
 | 3| Sea-3| Moon-3|
-| 4| Road | Blank-1|
+| 4| Land | Blank-1|
 | 5| Grass| Blank-2|
 | 6| Sand | Blank-3|
-| 7| Pond | Blank-4|
+| 7| Shallows | Blank-4|
 | 8| Snow | Blank-5|
-| 9| Rock | Blank-6|
-| 10| HardRock| Blank-7|
+| 9| Gravel | Blank-6|
+| 10| Rock| Blank-7|
 </div>
 
 The way that the actual mesh chunks work is really cool, but they make some really weird design choices along the way. Each mesh chunk is split into two parts. The first part is the vertex data, then we get to the triangle data. Each part is prefixed with a length, but what the length actually indicates isn't consistent, and has a separate definition for each part. 
@@ -131,29 +131,29 @@ Each of the 11 layers has a specific color that it is rendered with. These have 
 
 <div align="center">
 
-| Layer Name | Earth Color (R, G, B) | Moon Color (R, G, B)    |
-| ---------- | --------------------- | ----------------------- |
-| Sea/Moon-0 | `(50, 121, 134)        `|` (134, 137, 151)         `|
-| Sea/Moon-1 | `(61, 142, 159)        `|` (109, 112, 126)         `|
-| Sea/Moon-2 | `(72, 163, 184)        `|` (84, 87, 101)           `|
-| Sea/Moon-3 | `(83, 185, 209)        `|` (59, 62, 76)            `|
-| Road       | `(208, 208, 198)       `|                         |
-| Grass      | `(164, 184, 117)       `|                         |
-| Sand       | `(227, 208, 141)       `|                         |
-| Pond       | `(83, 185, 209)        `|                         |
-| Snow       | `(255, 255, 255)       `|                         |
-| Rock       | `(139, 110, 92)        `|                         |
-| HardRock   | `(88, 62, 45)          `|                         |
+| Layer Name | Earth Color (R, G, B) | Moon Color (R, G, B)  |
+| ---------- | --------------------- | --------------------- |
+| Sea/Moon-0 | `(50, 121, 134)      `|` (134, 137, 151)     `|
+| Sea/Moon-1 | `(61, 142, 159)      `|` (109, 112, 126)     `|
+| Sea/Moon-2 | `(72, 163, 184)      `|` (84, 87, 101)       `|
+| Sea/Moon-3 | `(83, 185, 209)      `|` (59, 62, 76)        `|
+| Land       | `(208, 208, 198)     `|                       |
+| Grass      | `(164, 184, 117)     `|                       |
+| Sand       | `(227, 208, 141)     `|                       |
+| Shallows   | `(83, 185, 209)      `|                       |
+| Snow       | `(255, 255, 255)     `|                       |
+| Gravel     | `(139, 110, 92)      `|                       |
+| Rock       | `(88, 62, 45)        `|                       |
 
 </div>
 
-They way things are actually rendered behind the scenes sheds some light on some interesting things. Take for instance the road at the top of the image. That isn't specifically put in the "Road" layer. Rather that geometry is actually in the "Grass" layer. This makes more sense if you look at the road and grass meshes separately: 
+They way things are actually rendered behind the scenes sheds some light on some interesting things. Take for instance the road at the top of the image. That isn't specifically put in the "Land" layer. Rather that geometry is actually in the "Grass" layer. This makes more sense if you look at the land and grass meshes separately: 
 
 <div align="center">
   <img src="content/Road-Layer.png" width="30%">
   <img src="content/Grass-Layer.png" width="30%">
 </div>
-See how the road layer doesn't have the road, but rather just canvases the entire open region of the island. Then there is just a gap in the grass layer, where the road can "shine through". this detail isn't really important, but could be if you are planning on using this library to gather map data. 
+See how the land layer doesn't have the land, but rather just canvases the entire open region of the island. Then there is just a gap in the grass layer, where the road can "shine through". this detail isn't really important, but could be if you are planning on using this library to gather map data. 
 
 When each mesh is rendered with the proper color, and in the render order discussed previously, we get an image which looks a lot like:
 

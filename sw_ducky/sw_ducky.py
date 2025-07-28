@@ -10,8 +10,8 @@ from .path_utils import scale_path, offset_path
 from .letter_data import LETTERS
 from .tile_drawing import TileCanvas
 
-EARTH_LAYER_MEM_ORDER = ['Road', 'Grass', 'Sand', 'Pond', 'Snow', 'Rock', 'HardRock', 'Sea-3', 'Sea-2', 'Sea-1','Sea-0']
-EARTH_LAYER_RENDER_ORDER = ['Sea-0', 'Sea-1', 'Sea-2','Sea-3', 'Road', 'Grass', 'Sand', 'Pond', 'Snow', 'Rock', 'HardRock']
+EARTH_LAYER_MEM_ORDER = ['Land', 'Grass', 'Sand', 'Shallows', 'Snow', 'Gravel', 'Rock', 'Sea-3', 'Sea-2', 'Sea-1','Sea-0']
+EARTH_LAYER_RENDER_ORDER = ['Sea-0', 'Sea-1', 'Sea-2','Sea-3', 'Land', 'Grass', 'Sand', 'Shallows', 'Snow', 'Gravel', 'Rock']
 
 MOON_LAYER_MEM_ORDER = ['Blank-1', 'Blank-2', 'Blank-3', 'Blank-4', 'Blank-5', 'Blank-6', 'Blank-7', 'Moon-3', 'Moon-2', 'Moon-1', 'Moon-0']
 MOON_LAYER_RENDER_ORDER = ['Moon-0', 'Moon-1', 'Moon-2', 'Moon-3', 'Blank-1', 'Blank-2', 'Blank-3', 'Blank-4', 'Blank-5', 'Blank-6', 'Blank-7']
@@ -21,13 +21,13 @@ EARTH_COLORS = {
     'Sea-1': (61, 142, 159),
     'Sea-2': (72, 163, 184),
     'Sea-3': (83, 185, 209),
-    'Road': (208, 208, 198),
+    'Land': (208, 208, 198),
     'Grass': (164, 184, 117),
     'Sand': (227, 208, 141),
-    'Pond': (83, 185, 209),
+    'Shallows': (83, 185, 209),
     'Snow': (255, 255, 255),
-    'Rock': (139, 110, 92),
-    'HardRock': (88, 62, 45)
+    'Gravel': (139, 110, 92),
+    'Rock': (88, 62, 45)
 }
 
 MOON_COLORS = {

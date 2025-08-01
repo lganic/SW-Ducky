@@ -153,7 +153,7 @@ They way things are actually rendered behind the scenes sheds some light on some
   <img src="content/Road-Layer.png" width="30%">
   <img src="content/Grass-Layer.png" width="30%">
 </div>
-See how the land layer doesn't have the land, but rather just canvases the entire open region of the island. Then there is just a gap in the grass layer, where the road can "shine through". this detail isn't really important, but could be if you are planning on using this library to gather map data. 
+See how the land layer doesn't have the road, but rather just canvases the entire open region of the island. Then there is just a gap in the grass layer, where the road can "shine through". this detail isn't really important, but could be if you are planning on using this library to gather map data. 
 
 When each mesh is rendered with the proper color, and in the render order discussed previously, we get an image which looks a lot like:
 

@@ -147,6 +147,8 @@ Each of the 11 layers has a specific color that it is rendered with. These have 
 
 </div>
 
+Note that when drawing a tile, there is a default color the entire tile takes on, and the geometry is drawn ontop of it. For an earth tile, that default color is `(40, 100, 110)` and for moon tiles that is `(159, 162, 176)`. 
+
 They way things are actually rendered behind the scenes sheds some light on some interesting things. Take for instance the road at the top of the image. That isn't specifically put in the "Land" layer. Rather that geometry is actually in the "Grass" layer. This makes more sense if you look at the land and grass meshes separately: 
 
 <div align="center">

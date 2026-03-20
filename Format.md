@@ -147,13 +147,15 @@ Each of the 11 layers has a specific color that it is rendered with. These have 
 
 </div>
 
+Note that when drawing a tile, there is a default color the entire tile takes on, and the geometry is drawn ontop of it. For an earth tile, that default color is `(40, 100, 110)` and for moon tiles that is `(159, 162, 176)`. 
+
 They way things are actually rendered behind the scenes sheds some light on some interesting things. Take for instance the road at the top of the image. That isn't specifically put in the "Land" layer. Rather that geometry is actually in the "Grass" layer. This makes more sense if you look at the land and grass meshes separately: 
 
 <div align="center">
   <img src="content/Road-Layer.png" width="30%">
   <img src="content/Grass-Layer.png" width="30%">
 </div>
-See how the land layer doesn't have the land, but rather just canvases the entire open region of the island. Then there is just a gap in the grass layer, where the road can "shine through". this detail isn't really important, but could be if you are planning on using this library to gather map data. 
+See how the land layer doesn't have the road, but rather just canvases the entire open region of the island. Then there is just a gap in the grass layer, where the road can "shine through". this detail isn't really important, but could be if you are planning on using this library to gather map data. 
 
 When each mesh is rendered with the proper color, and in the render order discussed previously, we get an image which looks a lot like:
 

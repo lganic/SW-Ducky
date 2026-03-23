@@ -13,8 +13,8 @@ from .tile_drawing import TileCanvas
 EARTH_LAYER_MEM_ORDER = ['Land', 'Grass', 'Sand', 'Shallows', 'Snow', 'Gravel', 'Rock', 'Sea-3', 'Sea-2', 'Sea-1','Sea-0']
 EARTH_LAYER_RENDER_ORDER = ['Sea-0', 'Sea-1', 'Sea-2','Sea-3', 'Land', 'Grass', 'Sand', 'Shallows', 'Snow', 'Gravel', 'Rock']
 
-MOON_LAYER_MEM_ORDER = ['Blank-1', 'Blank-2', 'Blank-3', 'Blank-4', 'Blank-5', 'Blank-6', 'Blank-7', 'Moon-3', 'Moon-2', 'Moon-1', 'Moon-0']
-MOON_LAYER_RENDER_ORDER = ['Moon-0', 'Moon-1', 'Moon-2', 'Moon-3', 'Blank-1', 'Blank-3', 'Blank-6', 'Blank-7', 'Blank-2', 'Blank-5', 'Blank-4']
+MOON_LAYER_MEM_ORDER = ['Land', 'Grass', 'Sand', 'Shallows', 'Snow', 'Gravel', 'Rock', 'Moon-3', 'Moon-2', 'Moon-1', 'Moon-0']
+MOON_LAYER_RENDER_ORDER = ['Moon-0', 'Moon-1', 'Moon-2', 'Moon-3', 'Land', 'Sand', 'Gravel', 'Rock', 'Grass', 'Snow', 'Shallows']
 
 EARTH_COLORS = {
     'Sea-0': (50, 121, 134),
@@ -35,13 +35,13 @@ MOON_COLORS = {
     'Moon-1': (109, 112, 126),
     'Moon-2': (84, 87, 101),
     'Moon-3': (59, 62, 76),
-    'Blank-1': (208, 208, 198),
-    'Blank-2': (164, 184, 117),
-    'Blank-3': (227, 208, 141),
-    'Blank-4': (59, 62, 76),
-    'Blank-5': (255, 255, 255),
-    'Blank-6': (139, 110, 92),
-    'Blank-7': (88, 62, 45)
+    'Land': (208, 208, 198),
+    'Grass': (164, 184, 117),
+    'Sand': (227, 208, 141),
+    'Shallows': (59, 62, 76),
+    'Snow': (255, 255, 255),
+    'Gravel': (139, 110, 92),
+    'Rock': (88, 62, 45)
 }
 
 BASE_COLORS = {

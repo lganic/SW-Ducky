@@ -16,13 +16,13 @@ Now we can get into the file itself. The file starts with`11` consecutive "Mesh 
 
 | Index| Earth| Moon|
 | -----| ------------------| -----------------|
-| 0| Land | Blank-1|
-| 1| Grass| Blank-2|
-| 2| Sand | Blank-3|
-| 3| Shallows | Blank-4|
-| 4| Snow | Blank-5|
-| 5| Gravel | Blank-6|
-| 6| Rock| Blank-7|
+| 0| Land | Land|
+| 1| Grass| Grass|
+| 2| Sand | Sand|
+| 3| Shallows | Shallows|
+| 4| Snow | Snow|
+| 5| Gravel | Gravel|
+| 6| Rock| Rock|
 | 7| Sea-3| Moon-3|
 | 8| Sea-2| Moon-2|
 | 9| Sea-1| Moon-1|
@@ -40,13 +40,13 @@ However in order to make things look right, they actually need to be rendered in
 | 1| Sea-1| Moon-1|
 | 2| Sea-2| Moon-2|
 | 3| Sea-3| Moon-3|
-| 4| Land | Blank-1|
-| 5| Grass| Blank-2|
-| 6| Sand | Blank-3|
-| 7| Shallows | Blank-4|
-| 8| Snow | Blank-5|
-| 9| Gravel | Blank-6|
-| 10| Rock| Blank-7|
+| 4| Land | Land|
+| 5| Grass| Sand|
+| 6| Sand | Gravel|
+| 7| Shallows | Rock|
+| 8| Snow | Grass|
+| 9| Gravel | Snow|
+| 10| Rock| Shallows|
 </div>
 
 The way that the actual mesh chunks work is really cool, but they make some really weird design choices along the way. Each mesh chunk is split into two parts. The first part is the vertex data, then we get to the triangle data. Each part is prefixed with a length, but what the length actually indicates isn't consistent, and has a separate definition for each part. 

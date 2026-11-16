@@ -79,6 +79,8 @@ class MapGeometry:
         for key in self.memory_order:
             self.terrain_vertices[key] = []
             self.terrain_tris[key] = []
+
+        self.correct_cw_tris = True
     
     @staticmethod
     def from_file(path_to_bin_file: str, moon = False):
@@ -211,7 +213,7 @@ class MapGeometry:
         # Pack all the mesh data
         for key in self.memory_order:
 
-            output_bytes += pack_single_mesh(self.terrain_vertices[key], self.terrain_tris[key])
+            output_bytes += pack_single_mesh(self.terrain_vertices[key], self.terrain_tris[key], correct_cw_tris = self.correct_cw_tris)
 
         # Pack all the quad data        
         for line_quads in self.line_data:

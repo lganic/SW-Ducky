@@ -134,7 +134,7 @@ def add_length(byte_string: bytes, value: int) -> bytes:
     return length_bytes + byte_string
     
 
-def pack_single_mesh(verts: List[Tuple[float, float]], tris: List[Tuple[int, int, int]]) -> bytes:
+def pack_single_mesh(verts: List[Tuple[float, float]], tris: List[Tuple[int, int, int]], correct_cw_tris = True) -> bytes:
 
     '''
     Pack a mesh chunk, using vertex and triangle data
@@ -160,6 +160,18 @@ def pack_single_mesh(verts: List[Tuple[float, float]], tris: List[Tuple[int, int
     
     # Pack all the triangles
     for tri in tris:
+
+        if correct_cw_tris:
+            # Calculate the orientation
+            pos_1 = verts[tri[0]]
+            pos_2 = verts[tri[1]]
+            pos_3 = verts[tri[2]]
+
+            winding = (pos_2[0] - pos_1[0]) * (pos_2[1] + pos_1[1]) + (pos_3[0] - pos_2[0]) * (pos_3[1] + pos_2[1]) + (pos_1[0] - pos_3[0]) * (pos_1[1] + pos_3[1])
+
+            if winding > 0:
+                # Clockwise winding order. Needs correction
+                tri = (tri[0], tri[2], tri[1]) # Repack
 
         tri_bytes += struct.pack('<HHH', *tri)
 

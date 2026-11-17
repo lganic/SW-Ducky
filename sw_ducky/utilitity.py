@@ -64,3 +64,11 @@ def dot(a: Tuple[float, float], b: Tuple[float, float]) -> float:
     '''
 
     return a[0] * b[0] + a[1] * b[1]
+
+def mag(a: Tuple[float, float]):
+
+    '''
+    Return the magnitude of a given point
+    '''
+
+    return math.sqrt(math.pow(a[0], 2), math.pow(a[1], 2))

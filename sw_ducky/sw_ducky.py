@@ -4,7 +4,7 @@ import math
 import os
 from typing import List, Tuple
 
-from .utilitity import line_from_quad
+from .utilitity import line_from_quad, add, subtract
 from .parsing import read_n_using_func, read_line_quads, read_single_mesh_chunk, pack_single_mesh, pack_quads
 from .path_utils import scale_path, offset_path
 from .letter_data import LETTERS
@@ -51,12 +51,6 @@ BASE_COLORS = {
 
 # Not sure if this is how these work yet. 
 LINE_COLORS = [(90, 90, 90), (140, 140, 140)]
-
-def subtract(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
-    return (a[0] - b[0], a[1] - b[1])
-
-def add(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
-    return (a[0] + b[0], a[1] + b[1])
 
 class MapGeometry:
 

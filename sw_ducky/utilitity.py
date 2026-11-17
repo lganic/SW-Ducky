@@ -40,3 +40,9 @@ def line_from_quad(quad: Tuple[Tuple[float, float]]) -> List[Tuple[float, float]
         return ((coords[0][0] + coords[1][0]) / 2, (coords[0][1] + coords[1][1]) / 2)
 
     return [avg_2_coords(quad[0: 2]), avg_2_coords(quad[2: 4])]
+
+def subtract(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
+    return (a[0] - b[0], a[1] - b[1])
+
+def add(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
+    return (a[0] + b[0], a[1] + b[1])

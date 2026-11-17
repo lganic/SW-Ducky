@@ -72,3 +72,13 @@ def mag(a: Tuple[float, float]):
     '''
 
     return math.sqrt(math.pow(a[0], 2), math.pow(a[1], 2))
+
+def norm(a: Tuple[float, float]):
+
+    '''
+    Return the normalized representation of the vector
+    '''
+
+    vec_mag = mag(a)
+
+    return (a[0] / vec_mag, a[1] / vec_mag)

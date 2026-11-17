@@ -56,3 +56,11 @@ def add(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
     '''
 
     return (a[0] + b[0], a[1] + b[1])
+
+def dot(a: Tuple[float, float], b: Tuple[float, float]) -> float:
+
+    '''
+    Return the dot product of two points
+    '''
+
+    return a[0] * b[0] + a[1] * b[1]

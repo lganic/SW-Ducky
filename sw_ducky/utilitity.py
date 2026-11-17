@@ -84,3 +84,22 @@ def norm(a: Tuple[float, float]) -> Tuple[float, float]:
     '''
 
     return mul(a, 1 / mag(a))
+
+def mitre(a: Tuple[float, float], b: Tuple[float, float], c: Tuple[float, float], W = 4) -> Tuple[Tuple[float, float], Tuple[float, float]]:
+
+    '''
+    Returns the mitre join of the three points with the given width
+    '''
+
+    u = norm(subtract(b, a))
+    v = norm(subtract(c, b))
+
+    n1 = (-u[1], u[0])
+    n2 = (-v[1], v[0])
+
+    m = mul(add(n1, n2), 1 / (1 + dot(n1, n2)))
+
+    pleft = add(b, mul(m, W / 2))
+    pright = subtract(b, mul(m, W / 2))
+
+    return (pleft, pright)

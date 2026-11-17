@@ -65,7 +65,7 @@ def dot(a: Tuple[float, float], b: Tuple[float, float]) -> float:
 
     return a[0] * b[0] + a[1] * b[1]
 
-def mag(a: Tuple[float, float]):
+def mag(a: Tuple[float, float]) -> float:
 
     '''
     Return the magnitude of a given point
@@ -73,7 +73,7 @@ def mag(a: Tuple[float, float]):
 
     return math.sqrt(math.pow(a[0], 2), math.pow(a[1], 2))
 
-def norm(a: Tuple[float, float]):
+def norm(a: Tuple[float, float]) -> Tuple[float, float]:
 
     '''
     Return the normalized representation of the vector

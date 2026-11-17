@@ -4,7 +4,7 @@ import math
 import os
 from typing import List, Tuple
 
-from .utilitity import line_from_quad, add, subtract
+from .utilitity import line_from_quad, mitre, subtract
 from .parsing import read_n_using_func, read_line_quads, read_single_mesh_chunk, pack_single_mesh, pack_quads
 from .path_utils import scale_path, offset_path
 from .letter_data import LETTERS
@@ -262,10 +262,33 @@ class MapGeometry:
         Add the sequence of lines onto the tile
         '''
 
-        for from_coord, to_coord in path:
+        collected_cords = []
+        old_left = None
+        old_right = None
 
-            self.add_line(layer_index, from_coord, to_coord)
-    
+        for coord in path:
+
+            collected_cords.append(coord)
+            if len(collected_cords) == 4:
+                collected_cords.pop(0) # O(N) but N is 4, so I don't care
+
+            if len(collected_cords) == 2:
+                # This is the first segment. Use mitre join, but add a square ending
+                reflected = subtract(collected_cords[0], collected_cords[1])
+                old_left, old_right = mitre(reflected, collected_cords[0], collected_cords[1])
+                continue
+
+            # Len of collected cors must be 3
+            new_left, new_right = mitre(*collected_cords)
+
+            self.line_data[layer_index].append((old_left, new_left, new_right, old_right)) # CW Winding Order
+
+        # Add the last point in use the same reflection trick
+        reflected = subtract(collected_cords[2], collected_cords[1])
+        new_left, new_right = mitre(collected_cords[1], collected_cords[2], reflected)
+
+        self.line_data[layer_index].append(old_left, new_left, new_right, old_right)
+
     def add_text(self, layer: int, text: str, location_x: float, location_y: float, size: float):
 
         '''

@@ -65,6 +65,10 @@ def dot(a: Tuple[float, float], b: Tuple[float, float]) -> float:
 
     return a[0] * b[0] + a[1] * b[1]
 
+def mul(a: Tuple[float, float], m: float) -> Tuple[float, float]:
+
+    return (a[0] * m, a[1] * m)
+
 def mag(a: Tuple[float, float]) -> float:
 
     '''
@@ -79,6 +83,4 @@ def norm(a: Tuple[float, float]) -> Tuple[float, float]:
     Return the normalized representation of the vector
     '''
 
-    vec_mag = mag(a)
-
-    return (a[0] / vec_mag, a[1] / vec_mag)
+    return mul(a, 1 / mag(a))

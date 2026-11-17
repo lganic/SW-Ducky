@@ -52,6 +52,12 @@ BASE_COLORS = {
 # Not sure if this is how these work yet. 
 LINE_COLORS = [(90, 90, 90), (140, 140, 140)]
 
+def subtract(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
+    return (a[0] - b[0], a[1] - b[1])
+
+def add(a: Tuple[float, float], b: Tuple[float, float]) -> Tuple[float, float]:
+    return (a[0] + b[0], a[1] + b[1])
+
 class MapGeometry:
 
     def __init__(self, moon = False):

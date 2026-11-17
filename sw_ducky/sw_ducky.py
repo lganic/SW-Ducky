@@ -252,7 +252,7 @@ class MapGeometry:
         # Add the new quad to the desired layer
         self.line_data[layer_index].append((c1, c2, c3, c4))
     
-    def add_path(self, layer_index: int, path: List[Tuple[Tuple[float, float]]]):
+    def add_path(self, layer_index: int, path: List[Tuple[float, float]]):
 
         '''
         Given a list of 2 coordinate pairs, like: 

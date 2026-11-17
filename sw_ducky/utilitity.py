@@ -75,7 +75,7 @@ def mag(a: Tuple[float, float]) -> float:
     Return the magnitude of a given point
     '''
 
-    return math.sqrt(math.pow(a[0], 2), math.pow(a[1], 2))
+    return math.sqrt(math.pow(a[0], 2) + math.pow(a[1], 2))
 
 def norm(a: Tuple[float, float]) -> Tuple[float, float]:
 
